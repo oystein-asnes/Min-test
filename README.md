@@ -1,2 +1,1 @@
-# DCAT-AP-NO
-DCAT-AP-NO
+Standard for beskrivelse av datasett og datakataloger (DCAT-AP-NO) skal sikre at beskrivelser av offentlige data utføres på en felles, strukturert måte og i en maskinlesbar form. Standarden stiller krav til hva som skal, bør og kan være med i beskrivelsene, med spesifikasjon av dataformat.
