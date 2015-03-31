@@ -1,0 +1,1123 @@
+# Standard for beskrivelse av datasett og datakataloger (DCAT-AP-NO)
+___
+
+* Versjon/dato: DCAT-AP-NO 1.0/ 31. mars 2015
+* Url til denne versjonen: [http://data.norge.no/dcat-ap-no-v1](http://data.norge.no/dcat-ap-no-v1)
+* Url til siste versjon:  [http://data.norge.no/dcat-ap-no](http://data.norge.no/dcat-ap-no)
+* URL til forrige versjon:
+
+* Spørsmål og kommentarer rettes til: opnedata@difi.no
+
+
+## Om dokumentet
+
+Standard for beskrivelse av datasett og datakataloger (DCAT-AP-NO) skal sikre at beskrivelser av offentlige data utføres på en felles, strukturert måte og i en maskinlesbar form. Standarden stiller krav til hva som _skal_, _bør_ og _kan_ være med i beskrivelsene, med spesifikasjon av dataformat.   
+
+## Innhold
+
+* <a href="#innledning">Innledning</a>
+* <a href="#omfang">Omfang og avgrensing</a>
+* <a href="#forvaltning">Forvaltningsregime</a>
+* <a href="#begrep">Ord, uttrykk og forkortelser</a>
+* <a href="#standarden">Selve standarden</a>
+	* <a href="#klasser-i-standarden">Oversikt over klasser i standarden</a>
+	* <a href="#urier-i-bruk">Oversikt over URIer som er i bruk </a>
+	* <a href="#egenskaper">Standardens egenskaper</a>
+	* <a href="#datakatalog">Egenskaper for klassen Datakatalog</a>
+	* <a href="#katalogpost">Egenskaper for klassen Katalogpost</a>
+	* <a href="#datasett">Egenskaper for klassen Datasett</a>
+	* <a href="#distribusjon">Egenskaper for klassen Distribusjon</a>
+	* <a href="#enhet">Egenskaper for klassen Enhet («Agent»)</a>
+	* <a href="#kategoriskjema">Egenskaper for klassen Kategoriskjema («Category Scheme»)</a>
+	* <a href="#kategori">Egenskaper for klassen Kategori</a>
+	* <a href="#lisens">Egenskaper for klassen Lisensdokument</a>
+	* <a href="#tidsperiode">Egenskaper for klassen Tidsperiode</a>
+* <a href="#vokabular">Kontrollerte vokabular</a>
+	* <a href="#krav-til-vokabualar">Krav til kontrollerte vokabular </a>
+	* <a href="#vokabular-som-skal-brukes">Kontrollerte vokabular som skal brukes</a>
+* <a href="tekst">Krav til tilbyder</a>
+
+## <a id="innledning">Innledning</a>
+
+Formålet med standarden er å legge tilrette for utveksling av beskrivelser av datasett, og å lette søk etter datasett. Standarden vil gjelde datasett som forvaltes av offentlig sektor, og som beskrives med tanke på oppføring i en katalog eller «inventarliste» . Standarden vil støtte søking i og deling av datasett på tvers av offentlig sektor (gjenbruk) og legge til rette for viderebruk i privat sektor. Standarden er således nyttig både for offentlig sektor selv og for næringsliv og sivilsamfunn for øvrig. 
+
+Arbeidet med informasjonsforvaltning i offentlig sektor har vist at det er behov for beskrivelser av alle datasett i forvaltningen, og det vil være hensiktsmessig at disse datasettene beskrives på en helhetlig måte. Standarden vil således være nyttig for etatens forvaltning av egen informasjon, og for andre etater, næringsliv og sivilsamfunn som har behov for å vite hvilke data etaten forvalter. 
+
+Ettersom standarden anbefaler formater som er beregnet for bruk i et Lenkede data-miljø, bør utgivere vurdere anbefalingene i W3C Notes [Best Practice Recipes for Publishing RDF Vocabularies](http://www.w3.org/TR/swbp-vocab-pub/ "Best Practice Recipes for Publishing RDF Vocabularies"), [Best Practices for Publishing Linked Data](http://www.w3.org/TR/ld-bp "Best Practices for Publishing Linked Data")  og ISA-rapporten [10 Rules for Persistent URIs](https://joinup.ec.europa.eu/community/semic/document/10-rules-persistent-uris "10 Rules for Persistent URIs"). Utgivere bør også vurdere å tildele URIer til alle forekomster av klassene som er beskrevet i standarden. Språk bør angis for alle literaler i tråd med [ISO 639](http://www.loc.gov/standards/iso639-2/php/code_list.php "Codes for the Representation of Names of Languages").
+
+DCAT-AP-NO er basert på den europeiske DCAT-profilen [DCAT application profile for data portals in Europe](https://joinup.ec.europa.eu/asset/dcat_application_profile/description "DCAT application profile for data portals in Europe") som er forvaltet av [EU-kommisjonens ISA-program](http://ec.europa.eu/isa/ "EU-kommisjonens ISA-program"). *S*iden standarden legger til rette for internasjonal utveksling, skal engelske egenskapsnavn i form av URIer benyttes.
+
+Egenskapsnavnene fra den underliggende DCAT-AP v1.01 er i «Norsk standard for beskrivelse av datasett og datakataloger» gitt norske navn. 
+
+Avvikene fra den europeiske DCAT-AP v1.01 er i gjeldende versjon (DCAT-AP-NO 1.0) disse: 
+
+* For klassen Datasett er «tilgangsnivå» lagt til som anbefalt egenskap
+
+* For klassen Datasett er «skjermingshjemmel» lagt til som anbefalt egenskap
+
+* JSON-LD er lagt til som anbefalt publiseringsformat i tillegg til RDF/XML
+
+* Egenskapene er gitt norske navn (URIer skal brukes - ikke navnet på egenskapene)
+
+Vi gjør oppmerksom på at ISA har startet arbeidet med en revisjon av DCAT-AP. Fremtidige versjoner av DCAT-AP-NO vil ta opp i seg endringene for DCAT-AP. Det er sannsynlig at det kommer flere særnorske utvidelser i neste versjon av DCAT-AP-NO. Disse er omtalt i utredningen for standarden.
+
+
+## <a id="omfang">Omfang og avgrensing</a>
+
+ Standarden er anbefalt brukt for å beskrive datasett og datakataloger i offentlig sektor. Den vil gjelde for alle datasett i offentlig sektor (inkludert åpne data) *som beskrives med tanke på oppføring i en katalog eller «inventarliste» (intern eller ekstern)*.  Standarden er ikke tenkt brukt for å beskrive dokumenter eller fagsystem.
+
+## <a id="forvaltning">Forvaltningsregime</a>
+
+Utarbeidelse av nye versjoner av «Standard for beskrivelse av datakataloger og datasett» initieres av Difi, og den primære kilden til nye versjoner vil være endringer i DCAT-AP. Difi vil derfor ha ansvar for å følge med på EUs bruk av, og endringsarbeid knyttet til, DCAT-AP. Arbeidet med en ny versjon av den nasjonale standarden skal som vanlig forankres i relevante organer via høring og behandling i Standardiseringsrådet.
+
+Difi vil i forbindelse med nye versjoner av DCAT-AP avgjøre om endringene er så store at det bør nedsettes en egen arbeidsgruppe bestående av relevante aktører, eller om revisjonen kan utføres av Difi selv. Forslaget til ny versjon sendes uansett på høring. De innkomne høringskommentarene behandles hos Difi, og resulterer i et forslag som oversendes Standardiseringsrådet.
+
+Difi ønsker å gi brukerne mulighet til å gi tilbakemeldinger og innspill til standarden via Difis nettsider. Slike innspill vil tas med inn i arbeidet med revisjoner initiert av nye DCAT-AP- versjoner, men Difi vil også vurdere tilbakemeldingene en gang i året, for å se om noen av dem bør føre til oppdateringer utenom disse større revisjonene.  Dette kan være aktuelt bl.a. fordi den nasjonale standard har noen tillegg til DCAT-AP som f.eks. kan vurderes.
+
+Dersom det oppdages mindre feil i standarden (stavefeil etc), vil ikke korrigering av disse utløse en ny versjon. Disse korrigeringene skal imidlertid dokumenteres i et vedlegg som følger den aktuelle standarden.
+
+Gjeldende og eventuelle tidligere versjoner av standarden skal være tilgjengelige på Difis nettsider, slik at det er enkelt å finne ut når tidligere versjoner var gyldige, og hvilke endringer som er foretatt mellom to versjoner.
+
+##<a id="begrep">Ord, uttrykk og forkortelser</a>
+
+<table><caption>Ord, uttrykk og forkortelser</caption>
+<tr><th>Begrep</th><th>Beskrivelse</th></tr>
+  <tr>
+    <td>Datasett</td>
+    <td>Et <em>datasett</em> er en samling med data, for eksempel i form av en tabell, liste eller en database som kan gjøres tilgjengelig som en nedlastbar fil, og/eller nåes via et Web-API. </td>
+  </tr>
+  <tr>
+    <td>Datakatalog</td>
+    <td>En <em>datakatalog</em> gjør det mulig å finne opplysninger om datasett, hvem som forvalter dem og hvordan de eventuelt er gjort tilgjengelig for andre. Datakatalogen kan inneholde beskrivelser av alle virksomhetens datasett,  uavhengig av om de er distribuert som fil for nedlasting, gjennom et Web API eller om distribusjon ikke eksisterer. </td>
+  </tr>
+  <tr>
+    <td>Web API</td>
+    <td><em>Web Application Programming Interface</em> gjør at dataprogrammer kan gjøre oppslag i et datasett ved hjelp av World Wide Web. For eksempel kan et datasett over bomstasjoner i Norge bli gjort tilgjengeleg for utviklere gjennom en web-API, slik at et dataprogram kan bruke kommunenummer for å hente en liste over alle bomstasjoner i en kommune.</td>
+  </tr>
+  <tr>
+    <td>Distribusjon</td>
+    <td>En <em>distribusjon</em>  er en spesifikk måte å gjøre et datasettet tilgjengelig på. Hvert datasett kan være tilgjengelig på flere måter, for eksempel i ulike format eller fra ulike nettadresser. Eksempel på distribusjoner kan være nedlastbar CSV-fil, et API eller en RSS-strøm.</td>
+  </tr>
+  <tr>
+    <td>Åpne data</td>
+    <td>Data som er fritt tilgjengelig for bruk og viderebruk av alle, både mennesker og maskiner. Dataeiere
+    kan ikke kreve mer enn at  man navngir og/eller deler videre på samme vilkår.</td>
+  </tr>
+  <tr>
+    <td>RDF</td>
+    <td><em>Resource Description Framework</em>. En gruppe W3C-spesifikasjoner som beskriver en modell for å representere metadata (data om data). Spesifikasjonene brukes i mange ulike sammenhenger for å beskrive informasjon og er et viktig element i visjonen om den semantiske webben.</td>
+  </tr>
+  <tr>
+    <td>DCAT</td>
+    <td><em>Data Catalog Vocabulary</em>. Et RDF-vokabular utviklet av W3C for å forenkle samhandling mellom datakataloger som er publisert på nettet.</td>
+  </tr>
+  <tr>
+    <td>DCAT-AP</td>
+    <td><em>DCAT Application profile for data portals in Europe</em>. En spesifikasjon basert på DCAT for å beskrive offentlige datasett i Europa</td>
+  </tr>
+  <tr>
+    <td>DCAT-AP-NO</td>
+    <td>Kortnavnet på denne standarden ("Standard for beskrivelse av datakataloger og datasett"). </td>
+  </tr>
+  <tr>
+    <td>JSON-LD</td>
+    <td><em>JavaScript Object Notation for Linked Data</em>. En JSON-basert serialisering av RDF. Anbefalt av W3C i januar 2014</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td><em>Uniform Resource Identifier</em> en kompakt streng av tegn som identifiserer en abstrakt eller fysisk ressurs  </td>
+  </tr>
+
+</table>
+
+
+# <a id="standarden">Selve standarden</a>
+___
+
+## <a id="klasser-i-standarden">Oversikt over klasser i standarden</a>
+
+<table>
+<caption>Oversikt over klasser i standarden</caption>
+  <tr>
+    <th>Klasse  (norsk)</th>
+    <th>Klasse (engelsk)</th>
+    <th>Beskrivelse</th>
+    <th>URI</th>
+    <th>Referanse</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>Enhet</td>
+    <td>Agent</td>
+    <td>Enhet som er assosiert med katalogen og/eller datasettene. Dersom enheten er en organisasjon er det anbefalt å bruke «Organization Ontology»</td>
+    <td>foaf:Agent</td>
+    <td>http://xmlns.com/foaf/spec/#term_Agent , http://www.w3.org/TR/vocab-org/</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>Kategori</td>
+    <td>Category</td>
+    <td>Et emne for et datasett</td>
+    <td>skos:Concept</td>
+    <td>http://www.w3.org/TR/2013/WD-vocab-dcat-20130312/#class-category-and-category-scheme</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>Kategori-skjema</td>
+    <td>Category scheme</td>
+    <td>En samling begrep (feks et kontrollert vokabular) der kategori er definert</td>
+    <td>skos:ConceptScheme</td>
+    <td>http://www.w3.org/TR/2013/WD-vocab-dcat-20130312/#class-category-and-category-scheme</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>Katalog</td>
+    <td>Catalogue</td>
+    <td>En katalog eller repository som inneholder datasettene som er beskrevet.</td>
+    <td>dcat:Catalog</td>
+    <td>http://www.w3.org/TR/2013/WD-vocab-dcat-20130312/#class-catalog</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>Datasett</td>
+    <td>Dataset</td>
+    <td>En konseptuell enhet som representerer informasjonen som publiseres</td>
+    <td>dcat:Dataset</td>
+    <td>http://www.w3.org/TR/2013/WD-vocab-dcat-20130312/#class-dataset</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>Literal</td>
+    <td>Literal</td>
+    <td>En literal-verdi slik som en streng eller integrer (0 og heltall). Literaler kan inneholde datatype, og f.eks være formatert som en dato. Literaler som innholder maskinlesbar tekst har en valgfri språk-tag, definert av BCP47 (no=norsk, nb=bokmål, nn=nynorsk, en=engelsk)</td>
+    <td>rdfs:Literal</td>
+    <td>http://www.w3.org/TR/rdf-concepts/#section-Literals</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>Ressurs</td>
+    <td>Resource</td>
+    <td>Objekter som ikke er strenger eller primitiver med datatyper.</td>
+    <td>rdfs:Resource</td>
+    <td>http://www.w3.org/TR/rdf-schema/#ch_resource</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>Distribusjon</td>
+    <td>Distribution</td>
+    <td>En fysisk utførelse av datasettet i et bestemt format.</td>
+    <td>dcat:Distribution</td>
+    <td>http://www.w3.org/TR/2013/WD-vocab-dcat-20130312/#class-distribution</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>Katalogpost</td>
+    <td>Catalogue Record</td>
+    <td>En beskrivelse av en datasettoppføring i katalogen.</td>
+    <td>dcat:CatalogRecord</td>
+    <td>http://www.w3.org/TR/2013/WD-vocab-dcat-20130312/#class-catalog-record</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Dokument</td>
+    <td>Documet</td>
+    <td>En tekstlig ressurs beregnet på mennesker som inneholder informasjon. For eksempel en nettside om et datasett.</td>
+    <td>foaf:Document</td>
+    <td>http://xmlns.com/foaf/spec/#term_Document</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Frekvens</td>
+    <td>Frequency</td>
+    <td>En frekvensen om noe som gjentar seg, f.eks publisering av et datasett.</td>
+    <td>dct:Frequency</td>
+    <td>http://dublincore.org/documents/dcmi-terms/#terms-Frequency</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Indentifikator</td>
+    <td>Identifier</td>
+    <td>En identifikator i en bestemt kontekst, bestående av strengen som er identifikatoren; en valgfri identifikator for identifikatorsystemet; en valgfri identifikator for versjonen av identifikatorsystemet; en valgfri identifikator for etaten som administrerer identifikatorsystemet</td>
+    <td>adms:Identifier</td>
+    <td>http://www.w3.org/TR/vocab-adms/#identifier</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Lisensdokument</td>
+    <td>License document</td>
+    <td>En juridisk dokument som gir offisiell tillatelse til å gjøre noe med en ressurs.</td>
+    <td>dct:LicenseDocument</td>
+    <td>http://dublincore.org/documents/2012/06/14/dcmi-terms/?v=terms#LicenseDocument</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Språksystem</td>
+    <td>Linguistic system</td>
+    <td>Et system av tegn, symboler, lyder, gester, eller regler som brukes i kommunikasjon, f.eks et språk</td>
+    <td>dct:LinguisticSystem</td>
+    <td>http://dublincore.org/documents/dcmi-terms/#terms-LinguisticSystem</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Lokasjon</td>
+    <td>Location</td>
+    <td>En region eller et navngitt sted. Det kan representeres ved hjelp av et kontrollert vokabular eller med geografiske koordinater.</td>
+    <td>dct:Location</td>
+    <td>http://dublincore.org/documents/dcmi-terms/#terms-Location</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Mediatype eller omfang</td>
+    <td>Media type or extent</td>
+    <td>En medietype eller omfang, f.eks formatet til en datafil</td>
+    <td>dct:MediaTypeOrExtent</td>
+    <td>http://dublincore.org/documents/dcmi-terms/#terms-MediaTypeOrExtent</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Tidsperiode</td>
+    <td>Period of time</td>
+    <td>Et tidsintervall som er navngitt eller definert av en start- og sluttdato.</td>
+    <td>dct:PeriodOfTime</td>
+    <td>http://dublincore.org/documents/dcmi-terms/#terms-PeriodOfTime</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Utgiver type</td>
+    <td>Publisher type</td>
+    <td>Type organisasjon som fungerer som en utgiver</td>
+    <td>skos:Concept</td>
+    <td>http://www.w3.org/TR/vocab-adms/#dcterms-type</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Rettighetsutsagn</td>
+    <td>Rights statement</td>
+    <td>En utsagn om immaterielle rettigheter knyttet til en ressurs, et juridisk dokument som gir offisiell tillatelse til å  gjøre noe med en ressurs, eller en uttalelse om tilgangsrettigheter.</td>
+    <td>dct:RightsStatement</td>
+    <td>http://dublincore.org/documents/dcmi-terms/#terms-RightsStatement</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Standard</td>
+    <td>Standard</td>
+    <td>En standard eller annen spesifikasjon som et datasett er i samsvar med</td>
+    <td>dct:Standard</td>
+    <td>http://dublincore.org/documents/dcmi-terms/#terms-Standard</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td>Status</td>
+    <td>En indikasjon på modenhet for en distribusjon</td>
+    <td>skos:Concept</td>
+    <td>http://www.w3.org/TR/vocab-adms/#status</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>VCard</td>
+    <td>Vcard</td>
+    <td>En beskrivelse etter vCard-spesifikasjon, f.eks  telefonnummer og e-post adresse for et kontaktpunkt.</td>
+    <td>v:VCard</td>
+    <td>http://www.w3.org/2006/vcard/ns-2006.html#VCard</td>
+    <td>Valgfri</td>
+  </tr>
+</table>
+
+
+## <a id="urier-i-bruk">Oversikt over URIer som er i bruk </a>
+
+<table> <caption>Oversikt over URIer som er i bruk</caption>
+  <tr>
+    <td>adms</td>
+    <td> http://www.w3.org/ns/adms# </td>
+  </tr>
+  <tr>
+    <td>dcat</td>
+    <td> http://www.w3.org/ns/dcat# </td>
+  </tr>
+  <tr>
+    <td>dct</td>
+    <td> http://purl.org/dc/terms/ </td>
+  </tr>
+  <tr>
+    <td>foaf</td>
+    <td> http://xmlns.com/foaf/0.1/ </td>
+  </tr>
+  <tr>
+    <td>rdfs</td>
+    <td> http://www.w3.org/2000/01/rdf-schema# </td>
+  </tr>
+  <tr>
+    <td>schema</td>
+    <td> http://schema.org/ </td>
+  </tr>
+  <tr>
+    <td>skos</td>
+    <td> http://www.w3.org/2004/02/skos/core# </td>
+  </tr>
+  <tr>
+    <td>xsd</td>
+    <td> http://www.w3.org/2001/XMLSchema# </td>
+  </tr>
+  <tr>
+    <td>V</td>
+    <td> http://www.w3.org/2006/vcard/ns# </td>
+  </tr>
+  <tr>
+    <td>pod</td>
+    <td> https://project-open-data.cio.gov/v1.1/schema/</td>
+  </tr>
+</table>
+
+
+#<a id="egenskaper">Standardens egenskaper</a>
+
+## <a id="datakatalog">Egenskaper for klassen datakatalog</a>
+
+<table><caption>Egenskaper for klassen datakatalog</caption>
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>datasett</td>
+    <td>dcat:dataset</td>
+    <td>dcat:Dataset</td>
+    <td>Kobler katalogen til datasett som er en del av katalogen</td>
+    <td>1..n</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>beskrivelse</td>
+    <td>dct:description</td>
+    <td>rdfs:Literal</td>
+    <td>Fritekst-beskrivelse av innholdet i katalogen. Egenskapen kan bli gjentatt for parallelle språkversjoner av beskrivelsen.</td>
+    <td>1..n</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>utgiver</td>
+    <td>dct:publisher</td>
+    <td>foaf:Agent</td>
+    <td>Referer til en enhet (organisasjon) som er ansvarlig for å gjøre katalogen tilgjengelig. Bør være autoritativ URI for enhet, sekundært organisasjonsnummer.</td>
+    <td>1..1</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>tittel</td>
+    <td>dct:title</td>
+    <td>rdfs:Literal</td>
+    <td>Inneholder navnet på katalogen. Egenskapen kan bli gjentatt for parallelle språkversjoner av navnet.</td>
+    <td>1..n</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>hjemmeside</td>
+    <td>foaf:homepage</td>
+    <td>foaf:Document</td>
+    <td>Nettside som fungerer som hovedside for katalogen</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>språk</td>
+    <td>dct:language</td>
+    <td>dct:LinguisticSystem</td>
+    <td>Viser til et språk som brukes i tekstlige metadata som beskriver titler, beskrivelser, osv av datasettene i katalogen. Egenskapen kan gjentas hvis metadata er gitt i flere språk.</td>
+    <td>0..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>lisens</td>
+    <td>dct:license</td>
+    <td>dct:LicenseDocument</td>
+    <td>Viser til lisens for datakatalogen som beskriver hvordan den kan viderebrukes.</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>utgivelsesdato</td>
+    <td>dct:issued</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Dato for formell utgivelse (publisering) av katalogen.</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>temaer</td>
+    <td>dcat:themeTaxonomy</td>
+    <td>skos:ConceptScheme</td>
+    <td>Referer til et kunnskapsorganiseringssystem (KOS) som er brukt for å klassifisere katalogens datasett</td>
+    <td>0..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>modifiseringsdato</td>
+    <td>dct:modified</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Dato for siste oppdatering/endring av katalogen</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>katalogpost</td>
+    <td>dcat:record</td>
+    <td>dcat:CatalogRecord</td>
+    <td>Referer til en katalogpost som er del av katalogen</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>rettigheter</td>
+    <td>dct:rights</td>
+    <td>dct:RightsStatement</td>
+    <td>Uttalelse som spesifiserer rettigheter knyttet til katalogen</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>dekningsområde</td>
+    <td>dct:spatial</td>
+    <td>dct:Location</td>
+    <td>Referanse til et geografisk område som er dekket av katalogen</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+</table>
+
+
+ 
+
+## <a id="katalogpost">Egenskaper for klassen Katalogpost (valgfri)</a>
+<table><caption> Egenskaper for klassen Katalogpost
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>primærtema</td>
+    <td>foaf:primaryTopic</td>
+    <td>dcat:Dataset</td>
+    <td>Denne egenskapen lenker katalogposten til datasettet som er beskrevet i katalogposten</td>
+    <td>1..1</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>modifiseringsdato</td>
+    <td>dct:modified</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Denne egenskapen inneholder den nyeste datoen for når katalogposten ble endret eller modifisert.</td>
+    <td>1..1</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>utlistingsdato</td>
+    <td>dct:issued</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Datoen for når beskrivelsen av datasett ble inkludert i datakatalogen.</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>endringstype</td>
+    <td>adms:status</td>
+    <td>skos:Concept</td>
+    <td>Type endring for siste revisjon av en datasettbeskrivelse i katalogen. MÅ ha en av verdiene :created, :updated eller :deleted avhengig av om denne siste revisjonen er et resultat av en ny post, oppdatering eller sletting.</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>beskrivelse</td>
+    <td>dct:description</td>
+    <td>rdfs:Literal</td>
+    <td>Inneholder en fritekstbeskrivelse av katalogposten. Denne egenskapen kan gjentas for parallelle språkversjoner av beskrivelsen.</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>tittel</td>
+    <td>dct:title</td>
+    <td>rdfs:Literal</td>
+    <td>Navnet på katalogen. Denne egenskapen kan gjentas for parallelle språkversjoner av navnet.</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+</table>
+
+
+##<a id="datasett">Egenskaper for klassen Datasett</a>
+
+<table><caption>Egenskaper for klassen Datasett </caption>
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>beskrivelse</td>
+    <td>dct:description</td>
+    <td>rdfs:Literal</td>
+    <td>Inneholder fritekstbeskrivelse av datasettet. Kan gjentas for parallelle språkversjoner</td>
+    <td>1..n</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>tittel</td>
+    <td>dct:title</td>
+    <td>rdfs:Literal</td>
+    <td>Inneholder navnet på datasettet. Kan gjentas for parallelle språkversjoner av navnet</td>
+    <td>1..n</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>kontaktpunkt</td>
+    <td>adms:contactPoint</td>
+    <td>v:Vcard</td>
+    <td>Inneholder kontaktinformasjon som kan brukes for å melde om feil i datasettet eller sende kommentarer</td>
+    <td>1..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>datasett distribusjon</td>
+    <td>dcat:distribution</td>
+    <td>dcat:Distribution</td>
+    <td>Koblingen mellom datasettet og en tilgjengelig distribusjon</td>
+    <td>0..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>emneord</td>
+    <td>dcat:keyword</td>
+    <td>rdfs:Literal</td>
+    <td>Inneholder emneord (eller tag) som beskriver datasettet</td>
+    <td>0..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>utgiver</td>
+    <td>dct:publisher</td>
+    <td>foaf:Agent</td>
+    <td>Refererer til en enhet (organisasjon) som er ansvarlig for å gjøre datasettet tilgjengelig. Bør være autoritativ URI for enhet, sekundært organisasjonsnummer.</td>
+    <td>1..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>tema</td>
+    <td>dcat:theme, subproperty of dct:subject</td>
+    <td>skos:Concept</td>
+    <td>Referanse til en tema/kategori for datasettet. Et datasett kan assosieres med flere tema</td>
+    <td>1..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>tilgangsnivå</td>
+    <td>pod:accessLevel</td>
+    <td>rdfs:Literal</td>
+    <td>Dette feltet angir i hvilken grad datasettet kan bli gjort tilgjengelig for allmennheten, uten hensyn til om det er publisert eller ikke. Obligatoriske verdier : «offentlig», «begrenset offentlighet», «unntatt offentlighet». Ved bruk av verdiene «begrenset offentlighet» og «unntatt offentlighet» er egenskapen «skjermingshjemmel» anbefalt</td>
+    <td>1..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>skjermingshjemmel</td>
+    <td>dct:accessRights</td>
+    <td>dct:RightsStatement</td>
+    <td>Henvisning til hjemmel (kilde for påstand) i offentlighetsloven, sikkerhetsloven, beskyttelsesinstruksen eller annet loverk som ligger til grunn for vurdering av tilgangsnivå. Egenskapen er anbefalt dersom «tilgangsnivå» har verdiene «begrenset offentlighet» eller «unntatt offentlighet»</td>
+    <td>0..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>i samsvar med</td>
+    <td>dct:conformsTo</td>
+    <td>dct:Standard</td>
+    <td>Referer til en implementasjons-regel eller annen spesifikasjon, for eksempel lovhjemmel som ligger til grunn for opprettelsen av datasettet</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>frekvens</td>
+    <td>dct:accrualPeriodicity</td>
+    <td>dct:Frequency</td>
+    <td>Referer til oppdateringsfrekvensen for datasettet</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>identifikator</td>
+    <td>dct:identifier</td>
+    <td>rdfs:Literal</td>
+    <td>Hovedindentifikator for datasettet, feks URIen eller annen identifikator som er unik i kontekst av katalogen</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>landingsside</td>
+    <td>dcat:landingPage</td>
+    <td>foaf:Document</td>
+    <td>Referanse til nettside som gir tilgang til datasettet, dets distribusjoner og/eller tilleggsinformasjon. Dokumentasjon som ikke er spesifikt definisjon av felter, hører hjemme her.</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>språk</td>
+    <td>dct:language</td>
+    <td>dct:LinguisticSystem</td>
+    <td>Referanse til språket som datasettet er på. Kan repeteres dersom det er flere språk i datasettet</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>annen identifikator</td>
+    <td>adms:identifier</td>
+    <td>adms:Identifier</td>
+    <td>Referanse til en sekundær identifikator av datasettet som MAST/ADS, DataCite, DOI, EZID eller W3ID.</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>utgivelsesdato</td>
+    <td>dct:issued</td>
+    <td>rdfs:Literal typed as xsd:dateTime</td>
+    <td>Dato for den formelle utgivelsen av datasettet</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>dekningsområde</td>
+    <td>dct:spatial</td>
+    <td>dct:Location</td>
+    <td>Referanse til et geografisk område datasettet gjelder for</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>tidsperiode</td>
+    <td>dct:temporal</td>
+    <td>dct:PeriodOfTime</td>
+    <td>Referanse til en tidsperiode datasettet gjelder for (startdato og sluttdato)</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>modifisert</td>
+    <td>dct:modified</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Dato for siste oppdatering av datasettet</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>versjon</td>
+    <td>adms:version</td>
+    <td>rdfs:Literal</td>
+    <td>Et versjonsnummer eller annen versjonsbetegnelse for datasettet</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>versjonsnote</td>
+    <td>adms:versionNotes</td>
+    <td>rdfs:Literal</td>
+    <td>En beskrivelse av endringene fra forrige versjon til denne versjonen av datasettet</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+</table>
+
+
+##  <a id="distribusjon">Egenskaper for klassen Distribusjon (anbefalt)</a>
+
+<table><caption>Egenskaper for klassen Distribusjon</caption>
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>tilgangsURL</td>
+    <td>dcat:accessURL</td>
+    <td>rdfs:Resource</td>
+    <td>En URL som gir tilgang til en distribusjon av datasettet. Ressursen det pekes til kan gi informasjon om hvordan en kan få tilgang til i datasettet</td>
+    <td>1..n</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>beskrivelse</td>
+    <td>dct:description</td>
+    <td>rdfs:Literal</td>
+    <td>Fritekstbeskrivelse av distribusjonen. Kan repeteres for parallelle språkversjoner</td>
+    <td>0..n</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>format</td>
+    <td>dct:format</td>
+    <td>dct:MediaTypeOrExtent</td>
+    <td>Referanse til distribusjonens filformat</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>lisens</td>
+    <td>dct:license</td>
+    <td>dct:LicenseDocument</td>
+    <td>Referanse til lisensen distribusjonen er gjort tilgjengelig under. Bør oppgis som URI, feks http://creativecommons.org/licenses/by/4.0</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+  <tr>
+    <td>filstørrelse</td>
+    <td>dcat:byteSize</td>
+    <td>rdfs:Literal typed as xsd:decimal</td>
+    <td>Distribusjonens størrelse oppgitt i bytes</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>nedlastningslenke</td>
+    <td>dcat:downloadURL</td>
+    <td>rdfs:Resource</td>
+    <td>Direktelenke (URL) til en nedlastbar fil i et gitt format</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>mediatype</td>
+    <td>dcat:mediaType, subproperty of dct:format</td>
+    <td>dct:MediaTypeOrExtent</td>
+    <td>Referer til distribusjonens medietype dersom denne er definert i IANA</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>utgivelsesdato</td>
+    <td>dct:issued</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Dato for formell utgivelse/publisering av distribusjonen</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>rettigheter</td>
+    <td>dct:rights</td>
+    <td>dct:RightsStatement</td>
+    <td>Viser til en uttalelse som angir rettigheter knyttet til distribusjonen.</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>status</td>
+    <td>adms:status</td>
+    <td>skos:Concept</td>
+    <td>Distribusjonens modenhet (fullført, under utvikling, utgått, trekt tilbake)</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>tittel</td>
+    <td>dct:title</td>
+    <td>rdfs:Literal</td>
+    <td>Navn på distribusjonen</td>
+    <td>0..n</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>modifiseringsdato</td>
+    <td>dct:modified</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Dato for siste modifisering av distribusjonen</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+</table>
+
+
+## <a id="enhet">Egenskaper for klassen Enhet </a> («Agent»)
+
+<table><caption>Egenskaper for klassen Enhet</caption>
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>navn</td>
+    <td>foaf:name</td>
+    <td>rdfs:Literal</td>
+    <td>Navn på enheten. Denne egenskapen kan gjentas for ulike versjoner av navnet (som navnet på forskjellige språk)</td>
+    <td>1..n</td>
+    <td>Obligatorisk</td>
+  </tr>
+  <tr>
+    <td>utgivertype</td>
+    <td>dct:type</td>
+    <td>skos:Concept</td>
+    <td>Refererer til type for enheten som gjør katalogen eller datasett tilgjengelig</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+</table>
+
+
+ 
+
+## <a id="kategoriskjema">Egenskaper for klassen Kategoriskjema</a> («Category Scheme»)
+
+<table><caption>Egenskaper for klassen Kategoriskjema</caption>
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>tittel</td>
+    <td>dct:title</td>
+    <td>rdfs:Literal</td>
+    <td>Navn på kategori-skjemaet. Kan gjentas for forskjellige versjoner av navnet</td>
+    <td>1..n</td>
+    <td>Oblibatorisk</td>
+  </tr>
+</table>
+
+
+## <a id="kategori">Egenskaper for klassen Kategori</a>
+
+<table><caption>Egenskaper for klassen Kategori</caption>
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>foretrukket tittel</td>
+    <td>skos:prefLabel</td>
+    <td>rdfs:Literal</td>
+    <td>Foretrukket tittel for kategorien. Kan gjentas for parallelle språkversjoner av etiketten.</td>
+    <td>1..n</td>
+    <td>Obligatorisk</td>
+  </tr>
+</table>
+
+
+## <a id="lisens">Egenskaper for klassen Lisensdokument</a>
+
+<table><caption>Egenskaper for klassen Lisensdokument</caption>
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>lisenstype</td>
+    <td>dct:type</td>
+    <td>rdfs:Class</td>
+    <td>Refererer til en type lisens, f.eks "åpen lisens" eller "royalties kreves '.</td>
+    <td>0..1</td>
+    <td>Anbefalt</td>
+  </tr>
+</table>
+
+
+## <a id="tidsperiode">Egenskaper for klassen Tidsperiode</a>
+
+<table><caption>Egenskaper for klassen Tidsperiode</caption>
+  <tr>
+    <th>Egenskap</th>
+    <th>URI</th>
+    <th>Range</th>
+    <th>Beskrivelse</th>
+    <th>Kard.</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>startdato/tid</td>
+    <td>schema:startDate</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Definerer starten på perioden</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+  <tr>
+    <td>sluttdato/tid</td>
+    <td>schema:endDate</td>
+    <td>rdfs:Literal typed as xsd:date or xsd:dateTime</td>
+    <td>Definerer slutten på perioden</td>
+    <td>0..1</td>
+    <td>Valgfri</td>
+  </tr>
+</table>
+
+
+Vær oppmerksom på at mens begge egenskapene er valgfrie, må en av de to være til stede.
+
+Starten av perioden skal forstås som starten på dato, time, minutt etc. gitt (f.eks starter ved midnatt på begynnelsen av dagen hvis verdien er en dato); slutten av perioden skal forstås som i slutten av dato, time, minutt etc. gitt (f.eks slutter ved midnatt på slutten av dagen hvis verdien er en dato)
+
+## <a id="vokabular">Kontrollerte vokabular </a>
+
+### <a id="krav-til-vokabualar">Krav til kontrollerte vokabular </a> 
+
+Følgende er en liste over krav som er identifisert for kontrollerte vokabular som er anbefalt av den underliggende applikasjonsprofilen DCAT-AP. 
+
+Kontrollerte vokabular bør: 
+
+* være publisert under en åpen lisens. 
+
+* brukes og / eller bli vedlikeholdt av en institusjon i Norge eller EU, av anerkjent standardiseringsorganisasjon eller en annen pålitelig organisasjon.
+
+* være skikkelig dokumentert. 
+
+* ha etiketter på flere språk 
+
+* inneholde et relativt lite antall begrep (f.eks 10-25) som er generelle nok til at et bredt spekter av ressurser kan klassifiseres.
+
+* har vilkår som er identifisert av URIer der hver URI viser til dokumentasjon av begrepet.
+
+* har en varighets- og versjonspolicy. 
+
+Disse kriteriene er ikke tenkt å definere et sett med krav til kontrollerte ordforråd generelt; de er kun ment brukt for utvelgelse av de kontrollerte vokabularene som er anbefalt for denne standarden
+
+### <a id="vokabular-som-skal-brukes">Kontrollerte vokabular som skal brukes</a>
+
+I tabellen nedenfor er en rekke egenskaper oppført med kontrollerte vokabular som må brukes for de nevnte egenskapene.
+
+<table>
+  <tr>
+    <th>URI</th>
+    <th>Brukt i klasse</th>
+    <th>Navn på vokabular</th>
+    <th>URI for vokabularet</th>
+    <th>Beskrivelse</th>
+  </tr>
+  <tr>
+    <td>dcat:mediaType</td>
+    <td>Distribusjon</td>
+    <td>MDR File types Name Authority List</td>
+    <td>http://publications.europa.eu/mdr/authority/file-type/</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>dcat:theme</td>
+    <td>Datasett</td>
+    <td>EuroVoc domains</td>
+    <td>http://eurovoc.europa.eu/100142 through 100162</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>dcat:themeTaxonomy</td>
+    <td>Katalog</td>
+    <td>EuroVoc</td>
+    <td>http://eurovoc.europa.eu/ </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>dct:accrualPeriodicity</td>
+    <td>Datasett</td>
+    <td>Dublin Core Collection Description Frequency Vocabulary</td>
+    <td>http://purl.org/cld/freq/ </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>dct:format</td>
+    <td>Distribusjon</td>
+    <td>MDR File Type Named Authority List</td>
+    <td>http://publications.europa.eu/mdr/authority/file-type/</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>dct:language</td>
+    <td>Katalog, Datasett</td>
+    <td>MDR Languages Named Authority List</td>
+    <td>http://publications.europa.eu/mdr/authority/language/ </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>dct:publisher</td>
+    <td>Katalog, Datasett</td>
+    <td>MDR Corporate bodies Named Authority List</td>
+    <td>http://publications.europa.eu/mdr/authority/corporate-body/ </td>
+    <td>Skal brukes for europeiske institusjoner og et lite sett med internasjonale organisasjoner. Ved andre typer organisasjoner, bør nasjonale, regionale eller lokale vokabular brukes.</td>
+  </tr>
+  <tr>
+    <td>dct:spatial</td>
+    <td>Katalog, Datasett</td>
+    <td>MDR Countries Named Authority List, MDR Places Named Authority List</td>
+    <td>http://publications.europa.eu/mdr/authority/country/, http://publications.europa.eu/mdr/authority/place/ </td>
+    <td>Vokabularet for land skal brukes hvis dekningsområde er et spesielt land. Vokabularet for steder skal brukes hvis dekningsområde er en del av et land.</td>
+  </tr>
+  <tr>
+    <td>adms:status</td>
+    <td>Katalogpost</td>
+    <td>ADMS change type vocabulary</td>
+    <td>http://purl.org/adms/changetype/  </td>
+    <td>:created, :updated, :deleted</td>
+  </tr>
+  <tr>
+    <td>adms:status</td>
+    <td>Distribusjon</td>
+    <td>ADMS status vocabulary</td>
+    <td>http://purl.org/adms/status/</td>
+    <td>Listen over begrep i ADMS status-vokabularet er inkludert i ADMS-spesifikasjonen </td>
+  </tr>
+  <tr>
+    <td>dct:type</td>
+    <td>Enhet (agent)</td>
+    <td>ADMS publisher type vocabulary</td>
+    <td>http://purl.org/adms/publishertype/Company </td>
+    <td>Liten over begrep i ADMS-vokabularet for utgivertype er inkludert i ADMS-spesifikasjonen</td>
+  </tr>
+  <tr>
+    <td>dct:type</td>
+    <td>Lisensdokument</td>
+    <td>ADMS licence type vocabulary</td>
+    <td>http://purl.org/adms/licencetype/ </td>
+    <td>Listen over begrep i ADMS-vokabularet for lisenstype er inkludert i ADMS spesifikasjonen</td>
+  </tr>
+</table>
+
+
+I tillegg til de foreslåtte felles vokabularene ovenfor, kan ytterligere domenespesifikke vokabular brukes. Selv om de ikke blir akseptert av generelle implementeringer av standarden, kan de bidra til å øke interoperabilitet på tvers av applikasjoner innenfor samme domene. Eksempler her er komplett sett med begreper i EuroVoc, CERIFs standardvokabular, Deweys desimalklassifikasjon og en rekke andre vokabular.
+
+## <a id="tekst">Krav til tilbyder</a>
+
+For å samsvare med standarden, må en applikasjon som tilbyr metadata:
+
+* Gi en beskrivelse av datakatalogen, inkludert minst de obligatoriske egenskapene
+
+* Gi en beskrivelse av de obligatoriske egenskapene for katalogposter dersom en slik beskrivelse er gitt. (Det er valgfritt å tilby beskrivelser av katalogposter.)
+
+* Gi beskrivelser av datasett i datakatalogen, inkludert minst de obligatoriske egenskapene 
+
+* Gi beskrivelser av distribusjoner (dersom de eksisterer), av datasett i datakatalogen, inkludert minst de obligatoriske egenskapene
+
+* Gi beskrivelser av alle organisasjoner som er involvert i beskrivelsene av datakatalogen og datasettene, herunder minst de obligatoriske egenskapene.
+
+* Gi beskrivelser av alle kategori-skjema som inneholder kategorier (tema) som er brukt i noen av beskrivelsene av datasett i datakatalogen, inkludert minst de obligatoriske egenskapene
+
+* Gi beskrivelser av alle kategorier som er involvert i beskrivelsene av datasett i datakatalogen, inkludert minst de obligatoriske egenskapene.
+
