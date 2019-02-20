@@ -1,2 +1,2 @@
 # Test 
-Test der formålet er å utforske Githubs muligheter som samarbeidsplattform for standardisering
+Test der formålet er å leke med Githubs funkjsonalitet.
