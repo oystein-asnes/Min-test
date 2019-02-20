@@ -1,2 +1,2 @@
 # Test 
-Test der formålet er å leke med Githubs funkjsonalitet.
+Test der formålet er å leke med Githubs funksjonalitet.
