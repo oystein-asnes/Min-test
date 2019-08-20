@@ -5,4 +5,4 @@ Vi testar sidebranjar og pull-requests...
 
 Vi committar direkte i Atom.....2
 
-Ny grein
+Testx
